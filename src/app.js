@@ -1,16 +1,17 @@
 import express from 'express';
 
 const app = express();
-const port = 3333;
 
 app.get('/', (req, res) => {
   res.send('IS THIS WORKING');
 });
 
-app.listen(port, (error) => {
-  if (error) {
-    throw error;
-  }
-
+const port = 3333;
+const server = app.listen(port, () => {
   console.log(`SERVER/${port}`);
+});
+
+server.on('error', (error) => {
+  console.error(`THIS IS NOT WORKING/${error.message}`);
+  process.exit(3);
 });
